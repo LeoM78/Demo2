@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+
+	function email() {
+		var email = $("#email").val();
+	    alert(email);
+		if (email == null || email == "") {
+			$("#emailId").html("邮箱不能为空！");
+		} else {
+			$.ajax({
+				url : "EmailServlet",
+				type : "get",
+				data : {"email":email},
+				dataType : "text",
+				success : function(r) {
+						if (r == "true") {
+							$("#emailId").html("ok");
+						} else {
+							$("#emailId").html("no");
+						}
+					},
+				error : function() {
+					alert("出错了，请联系管理员！");
+				}
+			});
+			 
+		}
+	};
+
+</script>
+</head>
+<body>
+
+		<table>
+			<tr>
+				<td>邮箱：</td>
+				<td><input type="text" name="email" id="email" onblur="email()"></td>
+				
+				<td><div style="display: inline" id="emailId"></div></td>
+			</tr>
+
+		</table>
+
+</body>
+</html>
